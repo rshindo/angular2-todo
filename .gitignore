@@ -37,3 +37,4 @@ typings
 
 # compiled js
 app/*.js
+app/*.map
