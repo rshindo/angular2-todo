@@ -21,7 +21,7 @@
 		<div class="btn-group">
 			<button class="btn btn-default active">
 				全部
-				<span class="badge">3</span>
+				<span class="badge">{{size}}</span>
 			</button>
 			<button class="btn btn-default">
 				未了
@@ -40,6 +40,19 @@
 	<hr>
 
 	<ul class="list-unstyled">
+		<li *ngFor="#todo of todos" [ngClass]="{done: todo.done}">
+			<form class="input-group input-group-lg">
+				<label class="input-group-addon">
+					<input type="checkbox" [(ngModel)]="todo.done">
+				</label>
+				<p class="form-control input-lg todo-title">{{todo.title}}</p>
+				<span class="input-group-btn del-btn">
+					<button type="reset" class="btn btn-danger">削除</button>
+				</span>
+			</form>
+		</li>
+	</ul>
+	<!-- <ul class="list-unstyled">
 		<li class="todo-item">
 			<form class="input-group input-group-lg">
 				<label class="input-group-addon">
@@ -75,6 +88,6 @@
 				value="編集中の ToDo">
 			</form>
 		</li>
-	</ul>
+	</ul> -->
 
 </div>
