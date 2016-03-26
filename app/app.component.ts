@@ -22,11 +22,14 @@ export class AppComponent {
 		this.todos.push(this.newTodo);
 		this.newTodo = new Todo("", false);
 	}
-	get size() {
+	get allCount() {
 		return this.todos.length;
 	}
-	get doneSize() {
-		return this.todos.filter( todo => todo.done === true).length;
+	get doneCount() {
+		return this.todos.filter(todo => todo.done === true).length;
+	}
+	get remainingCount() {
+		return this.todos.filter(todo => todo.done === false).length;
 	}
 	changeFilter(condition) {
 		this.currentFilter = condition;
