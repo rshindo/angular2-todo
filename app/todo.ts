@@ -2,6 +2,6 @@ export class Todo {
 
 	constructor(
 		public title:string,
-		public done:string
+		public done:boolean
 	) {}
 }
