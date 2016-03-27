@@ -54,3 +54,8 @@ body {
 .col-sm {
   width: 20%;
 }
+
+/* for "hiden" property */
+[hidden] {
+  display: none !important;
+}

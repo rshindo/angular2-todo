@@ -40,14 +40,18 @@
 	<hr>
 
 	<ul class="list-unstyled">
-		<li *ngFor="#todo of todos | todoFilter:currentFilter" [ngClass]="{done: todo.done}">
-			<form class="input-group input-group-lg">
+		<li *ngFor="#todo of todos | todoFilter:currentFilter" 
+		[ngClass]="{done: todo.done, editing: todo == editing}">
+			<form class="input-group input-group-lg" name="todoForm" (submit)="doneEdit(todoForm)">
 				<label class="input-group-addon">
 					<input type="checkbox" [(ngModel)]="todo.done">
 				</label>
-				<p class="form-control input-lg todo-title">{{todo.title}}</p>
+				<p class="form-control input-lg todo-title" [hidden]="todo == editing" (dblclick)="editTodo(todo)">
+					{{todo.title}}
+				</p>
+				<input type="text" class="form-control input-lg" required (blur)="doneEdit(todoForm)" [(ngModel)]="todo.title" [hidden]="todo !== editing">
 				<span class="input-group-btn del-btn">
-					<button type="reset" class="btn btn-danger">削除</button>
+					<button type="reset" class="btn btn-danger" *ngIf="todo != editing">削除</button>
 				</span>
 			</form>
 		</li>
