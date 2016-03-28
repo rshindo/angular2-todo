@@ -48,4 +48,14 @@ export class AppComponent {
 		}
 		this.editing = this.originalTitile = null;
 	}
+	checkAll() {
+		var state = !!this.remainingCount;
+		this.todos.forEach(todo => todo.done = state);
+	}
+	removeDoneTodo() {
+		this.todos = this.todos.filter(todo => todo.done === false);
+	}
+	removeTodo(currentTodo:Todo) {
+		this.todos = this.todos.filter(todo => currentTodo != todo);
+	}
 }
