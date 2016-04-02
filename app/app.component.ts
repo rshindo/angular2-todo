@@ -1,20 +1,24 @@
-import {Component, Injectable, Pipe, PipeTransform} from 'angular2/core';
+import {Component, Injectable, Pipe, PipeTransform, OnInit} from 'angular2/core';
 import {NgForm} from 'angular2/common';
 
 import {Todo} from './todo';
 import {TodoFilter} from './todo-filter.pipe';
 import {MySelectDirective} from './my-select.directive';
 
+import {TodoService} from './todo.service';
+
+import {RegisterFormComponent} from './register-form.component';
+
 @Component({
 	selector: 'my-app',
 	// template: '<h1>ToDo</h1>'
 	pipes: [TodoFilter],
-	directives: [MySelectDirective],
-	templateUrl: 'app/app.component.html'
+	directives: [RegisterFormComponent, MySelectDirective],
+	templateUrl: 'app/app.component.html',
+	providers: [TodoService]
 })
-export class AppComponent {
-	todos: Todo[] = [];
-	newTodo = new Todo("", false);
+export class AppComponent implements OnInit {
+	todos: Todo[];
 	editing:Todo = null;
 	originalTitile:string;
 	currentFilter = null;
@@ -22,9 +26,9 @@ export class AppComponent {
 		remaining: { done : false },
 		done: { done: true }
 	}
-	addTodo() {
-		this.todos.push(this.newTodo);
-		this.newTodo = new Todo("", false);
+	constructor(private _todoService:TodoService) {}
+	ngOnInit() {
+		this.todos = this._todoService.getTodos();
 	}
 	get allCount() {
 		return this.todos.length;
