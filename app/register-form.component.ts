@@ -2,18 +2,18 @@ import {Component, OnInit, Input} from 'angular2/core';
 import {NgForm} from 'angular2/common';
 
 import {Todo} from './todo';
+import {TodoService} from './todo.service';
 
 @Component({
 	selector: 'register-form',
-	templateUrl: 'app/register-form.component.html',
-	inputs: ['todos']
+	templateUrl: 'app/register-form.component.html'
 })
 export class RegisterFormComponent {
-	@Input() todos: Todo[];
+	todos: Todo[];
 	newTodo: Todo = new Todo("",false);
-	constructor () {}
+	constructor (private _todoService: TodoService) { }
 	addTodo() {
-		this.todos.push(this.newTodo);
+		this._todoService.addTodo(this.newTodo);
 		this.newTodo = new Todo("", false);
 	}
 }
