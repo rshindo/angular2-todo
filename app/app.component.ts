@@ -26,8 +26,13 @@ export class AppComponent implements OnInit {
 		remaining: { done : false },
 		done: { done: true }
 	}
-	constructor(private _todoService:TodoService) {}
+	constructor(private _todoService:TodoService) {
+		this._todoService.itemRemoved$.subscribe(() => this.getTodos());
+	}
 	ngOnInit() {
+		this.getTodos();
+	}
+	getTodos() {
 		this.todos = this._todoService.getTodos();
 	}
 	get allCount() {
@@ -57,9 +62,9 @@ export class AppComponent implements OnInit {
 		this.todos.forEach(todo => todo.done = state);
 	}
 	removeDoneTodo() {
-		this.todos = this.todos.filter(todo => todo.done === false);
+		this._todoService.removeDoneTodo();
 	}
 	removeTodo(currentTodo:Todo) {
-		this.todos = this.todos.filter(todo => currentTodo != todo);
+		this._todoService.removeTodo(currentTodo);
 	}
 }
